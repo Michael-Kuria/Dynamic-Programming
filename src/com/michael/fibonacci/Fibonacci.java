@@ -2,6 +2,9 @@ package com.michael.fibonacci;
 
 import java.util.HashMap;
 
+/**
+ * Java implementation for calculating fibonacci values
+ */
 public class Fibonacci {
 
     static HashMap<Integer,Integer> map = new HashMap<>(); // This map will be used to store computed fibonacci values
