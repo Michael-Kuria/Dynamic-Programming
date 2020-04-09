@@ -30,7 +30,7 @@ public class Fibonacci {
 
     /**
      * This function uses dynamic programming. Once a value is computed the value is stored in a hash-map
-     * and will be used later.
+     * and will be used later during computation.
      * This function takes O(n) time
      *
      * @param n argument
@@ -52,9 +52,31 @@ public class Fibonacci {
     }
 
 
+    /**
+     * This a dp approach, except that in this case we first solve the small problems till we reach n;
+     *  BOTTOM-UP-APPROACH
+     * @param n
+     * @return
+     */
+    public static int bottomUpApproach(int n){
+        int [] dp = new int[n + 1];
+
+        dp[0] = 0;
+        dp[1] = 1;
+
+        for(int i = 2; i <= n; i ++){
+
+            dp[i] = dp[i - 1] + dp[i - 2];
+        }
+
+        return dp[n];
+    }
+
+
     public static void main(String  [] args){
         int n = 25;
         System.out.println("Using Dynamic Programming Approach: " + dynamicProgrammingApproach(n));
+        System.out.println("Using the bottom up approach " + bottomUpApproach(n));
         System.out.println("Using NaiveApproach: " + naiveApproach(n));
 
 
