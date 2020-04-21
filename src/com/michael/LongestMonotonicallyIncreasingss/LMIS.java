@@ -1,11 +1,13 @@
 package com.michael.LongestMonotonicallyIncreasingss;
 
 
+import javafx.util.Pair;
 
 /**
  * A java implementation of the Longest Monotonically Increasing Subsequence
  */
 public class LMIS {
+
 
     /**
      * Bottom up approach
@@ -33,7 +35,7 @@ public class LMIS {
 
 
     public static void main(String [] a){
-        String x = "AB";
+        String x = "ABCDAD";
 
         System.out.println("LMIS " + lmis(x));
     }
