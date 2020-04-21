@@ -7,9 +7,15 @@ import java.util.Scanner;
  */
 public class Frog_1 {
 
+    /**
+     * Bottom up apprach, (Find the minimum cost of each i where 1 <= i <= n)
+     * @param n Number of steps
+     * @param h array consisting of the cost of each step
+     * @return the minimum cost of arriving at n
+     */
     public static int frog(int n, int [] h){
 
-        int dp[] = new int [n ];
+        int dp[] = new int [n];
 
         dp[0] = 0;
         dp[1] = Math.abs(h[1] - h[0]);
@@ -21,7 +27,7 @@ public class Frog_1 {
 
 
         }
-        print(dp);
+        //print(dp);
         return dp[n - 1];
     }
 
