@@ -22,7 +22,7 @@ public class LCS {
             }
         }
 
-        printArray(dp);
+        //printArray(dp);
 
         StringBuilder x = new StringBuilder();
 
