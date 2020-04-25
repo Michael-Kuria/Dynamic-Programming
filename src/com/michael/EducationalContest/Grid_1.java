@@ -12,9 +12,9 @@ public class Grid_1 {
      * @param h
      * @param w
      * @param g
-     * @return
+     * @return The total number of ways to get to [h,w]
      */
-    public static double grid(int h, int w,int [][] g){
+    public static long grid(int h, int w,int [][] g){
 
         long [][] a = new long[h + 1][w + 1];
 
@@ -34,7 +34,7 @@ public class Grid_1 {
             }
         }
 
-        return a[h][w] % (Math.pow(10,9)+ 7);
+        return (long) (a[h][w] % (1e9 + 7));
 
     }
 
