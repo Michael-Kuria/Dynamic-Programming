@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class Frog_1 {
 
     /**
-     * Bottom up apprach, (Find the minimum cost of each i where 1 <= i <= n)
+     * Bottom up approach, (Find the minimum cost of each i where 1 <= i <= n)
      * @param n Number of steps
      * @param h array consisting of the cost of each step
      * @return the minimum cost of arriving at n

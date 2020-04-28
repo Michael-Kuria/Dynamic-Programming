@@ -4,6 +4,59 @@ import java.util.Scanner;
 
 public class Coins_1 {
 
+    // Bottom up using O(n^2 space)
+    public static double bottom_up2(double[] p , int n){
+        double[][] dp = new double[n + 1][ n + 1];
+
+        dp[0][0] = 1;
+        for(int i = 1; i <= n; i ++){
+            for(int j = i ; j >= 0; j --){
+                dp[i][j] = dp[i - 1][j] * (1 - p[i - 1]) + (j == 0 ? 0 : dp[i - 1][j - 1] * p[i - 1]);
+            }
+        }
+
+        //print(dp);
+        double a = 0;
+        for(int j = 0; j <= n; j ++){
+            int k = n - j;
+
+            if(j > k){
+                a += dp[n][j];
+            }
+        }
+
+        return a;
+    }
+
+
+    // Bottom up saving some space
+    public static double bottom_up(double[] p, int n){
+
+        double [] dp = new double [n + 1];
+
+        dp[0] = 1;
+        for(int i = 0; i < n ; ++ i){ // for reading each coin's probability in the array p
+
+            for(int j = i + 1  ; j >= 0; -- j){
+                dp[j] = (j == 0 ? 0 : dp[j - 1] * p[i]) + dp[j] * (1 - p[i]);
+
+            }
+        }
+
+
+        double answer = 0;
+        for(int i = 0; i <= n; i ++){
+            int tails = n - i;
+            if(i > tails){
+                answer += dp[i];
+            }
+
+        }
+
+        return answer;
+
+    }
+
     /**
      *
      * @param j is the position we are in in the array
@@ -12,10 +65,8 @@ public class Coins_1 {
      * @return the probability of having the most heads
      */
     public static double recursive(int j, int h, double[] p){
-        if(h == 1 && j == 0){
-            System.out.println( "a " + h +" " + j);
-            return p[j];
-        }else if(h - 1 > j || h == -1) {
+
+        if(h - 1 > j || h == -1) {
             System.out.println( "b " + h +" " + j);
             return 0.0;
         }else if(j == -1){
@@ -96,7 +147,8 @@ public class Coins_1 {
         double [][] d = new double[n + 1][n + 1];
 
         System.out.println("Probability of having most heads : "+ prob(n,p,d));
-        print(d);
+        //print(d);
+        System.out.println("Bottom up : " + bottom_up2(p,n));
 
 
 
