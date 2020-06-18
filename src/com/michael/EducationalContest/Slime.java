@@ -30,6 +30,7 @@ public class Slime {
         return dp[0][n - 1];
     }
 
+    //  find sum of range  i to j in a
     private static long sum(int i, int j, int[] a) {
 
         long s = 0;
