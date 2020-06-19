@@ -4,38 +4,62 @@ import java.util.Scanner;
 
 public class Candies {
 
-    public static long solve(int n, int k, int [] a){
+    static int mod = (int)1e9 + 7;
 
-        long dp[][] = new long [n + 1][k + 1];
+    public static int sub(int a, int b){
 
-        dp[0][0] = 1;
-        for(int i = 1; i <= n; i ++){
-            for(int j = 1; j <= k; j ++){
-                if(a[i - 1] > j)
-                    dp[i][j] = dp[i - 1][j] + dp[i][j - 1];
-                else
-                    dp[i][j] = dp[i][j - 1];
-
-            }
+        a -= b;
+        if(a < 0){
+           a += mod;
         }
-
-        return dp[n][k] % (int)(1e9 + 7);
+        return a;
     }
 
 
-    public static int solve2(int n, int k, int [] a){
-        int dp[] = new int[k + 1];
+    public static int add(int a, int b){
+        a += b;
 
+        if(a >= mod){
+            a -= mod;
+        }
+        return a;
+    }
+
+    public static int solve(int n, int k, int [] a){
+
+        int [] dp = new int [k + 1];
 
         dp[0] = 1;
-        for(int i = 0; i < n; i ++){
 
-            for(int j = 0; j <= k; j ++ ){
+        for(int i = 0 ; i < n; i ++){
 
-                if(j <= a[i]){
-                    dp[j] = dp[k - j]  +1;
+            int [] updates = new int [k + 1];
+
+            for(int used = k; used >= 0; used --){
+
+                int L = used + 1;
+                int R = used + Math.min(a[i], k - used);
+
+                if(L <= R){
+
+                    updates[L] = add(updates[L], dp[used]);
+
+                    if(R + 1 <= k){
+                        updates[R + 1] = sub(updates[R + 1] , dp[used]);
+                    }
                 }
+
             }
+
+            int pref = 0;
+
+            for(int j = 0; j <= k; j ++){
+                pref += updates[j];
+
+                dp[j] = add(dp[j], pref);
+
+            }
+
         }
 
         return dp[k];
@@ -56,7 +80,7 @@ public class Candies {
         }
 
         System.out.println(solve(n,k,a));
-        System.out.println(solve2(n,k,a));
+        //System.out.println(solve2(n,k,a));
 
     }
 }

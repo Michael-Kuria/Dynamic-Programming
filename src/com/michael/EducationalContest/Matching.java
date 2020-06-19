@@ -1,6 +1,5 @@
 package com.michael.EducationalContest;
 
-import java.util.BitSet;
 import java.util.Scanner;
 
 public class Matching {
@@ -22,19 +21,21 @@ public class Matching {
         int [] dp = new int [1 << n];
         dp[0] = 1;
 
-
         for(int j = 0; j < (1 << n) - 1; j ++ ){
-            int i =  Integer.bitCount(j);
+            int i =  Integer.bitCount(j); // how many bits are set
+            //System.out.println(i);
             for(int k = 0; k < n; k ++){
 
-                if(a[i][k] == 1 && (j & (1 << k)) == 0){
+                if(a[i][k] == 1 && (j & (1 << k)) == 0){ //1 << k is she occupied
 
                     int m = j ^ (1 << k);
+
                     dp[m] = sum(dp[m], dp[j]);
                 }
             }
         }
 
+        //System.out.println(dp[1] +" " + dp[2] +" " + dp[4]);
 
         return  (dp[(1 << n) - 1]);
     }
