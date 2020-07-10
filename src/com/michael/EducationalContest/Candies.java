@@ -31,21 +31,21 @@ public class Candies {
 
         dp[0] = 1;
 
-        for(int i = 0 ; i < n; i ++){
+        for(int i = 0 ; i < n; i ++) {
 
-            int [] updates = new int [k + 1];
+            int[] updates = new int[k + 1];
 
-            for(int used = k; used >= 0; used --){
+            for (int used = k; used >= 0; used--) {
 
                 int L = used + 1;
                 int R = used + Math.min(a[i], k - used);
 
-                if(L <= R){
+                if (L <= R) {
 
                     updates[L] = add(updates[L], dp[used]);
 
-                    if(R + 1 <= k){
-                        updates[R + 1] = sub(updates[R + 1] , dp[used]);
+                    if (R + 1 <= k) {
+                        updates[R + 1] = sub(updates[R + 1], dp[used]);
                     }
                 }
 
@@ -53,8 +53,8 @@ public class Candies {
 
             int pref = 0;
 
-            for(int j = 0; j <= k; j ++){
-                pref += updates[j];
+            for (int j = 0; j <= k; j++) {
+                pref = add(pref, updates[j]);
 
                 dp[j] = add(dp[j], pref);
 
