@@ -1,9 +1,11 @@
 package com.michael.EducationalContest;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Knapsack_2 {
 
+    static int totalValue = 0;
     public static class Item{
         int id;
         int w;
@@ -17,26 +19,35 @@ public class Knapsack_2 {
     }
 
 
-    public static int knapsack(int n, int w, Item [] it){
 
-        int dp[][] = new int[n + 1][w + 1];
 
-        for(int i = 1; i <= n; i ++){
-            for(int j = 1; j <= w; j ++){
+    public static void sol(int n, int w, Item [] it){
 
-                if(it[i - 1].w > j){
+        int dp[] = new int[totalValue + 5];
 
-                    dp[i][j] = dp[i - 1][j];
-                }else{
+        Arrays.fill(dp, Integer.MAX_VALUE >> 2);
+        dp[0] = 0;
 
-                    dp[i][j] = Math.max(dp[i - 1][j],  dp[i - 1][j - it[i - 1].w] + it[i - 1].v);
-                }
+        for(int i = 0; i < n; i ++){
+
+            for(int x = totalValue - it[i].v; x >= 0; x --){
+
+                dp[x + it[i].v] = Math.min(dp[x + it[i].v], dp[x] + it[i].w);
             }
         }
 
-        return dp[n][w];
-    }
 
+        int ans = 0;
+
+        for(int i = 0; i <= totalValue; i ++){
+
+            if(dp[i] <= w)
+                ans = Math.max(ans, i);
+        }
+
+        System.out.println(ans);
+
+    }
 
     public static void main(String [] args){
         Scanner scan = new Scanner(System.in);
@@ -49,9 +60,10 @@ public class Knapsack_2 {
         while(i < n){
             System.out.println(i);
             it[i] = new Item(i, scan.nextInt(), scan.nextInt());
+            totalValue += it[i].v;
             i ++;
         }
 
-        System.out.println("Best " + knapsack(n,w,it));
+        sol(n,w,it);
     }
 }
