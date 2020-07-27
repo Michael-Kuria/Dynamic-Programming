@@ -19,8 +19,6 @@ public class Knapsack_2 {
     }
 
 
-
-
     public static void sol(int n, int w, Item [] it){
 
         int dp[] = new int[totalValue + 5];
