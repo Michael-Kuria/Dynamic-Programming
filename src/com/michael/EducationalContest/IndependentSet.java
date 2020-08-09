@@ -1,70 +1,77 @@
 package com.michael.EducationalContest;
 
-import java.util.*;
+
+import com.michael.Pair;
+
+import java.util.ArrayList;
+import java.util.Scanner;
 
 public class IndependentSet {
-    public static class Node{
-        Node p;
-        List<Node> adj = new ArrayList<>();
-        int color;
 
+    static int n, MOD = (int) 1e9 + 7;
+    static ArrayList<Integer>[] g;
+
+
+    public static int multiply(int a, int b) {
+
+        return (a * b) % MOD;
     }
 
-    static Node [] tree;
-    static int n, cnt = 0;
+
+    /**
+     * A dfs on the tree
+     *
+     * @param a
+     * @param p
+     * @return a pair with f representing the number of ways the node can be painted black and s the number of ways it can be painted white
+     */
+    public static Pair<Integer, Integer> solve(int a, int p) {
+
+        int b = 1;
+        int w = 0;
+
+        for (int c : g[a]) {
+            if (c != p) {
+                Pair<Integer, Integer> pair = solve(c, a);
+
+                int mb = b;
+                b = multiply(b, pair.s);
+                w = multiply(pair.s + pair.f, w) + multiply(mb, pair.f);
 
 
-
-    public static void solve(Node n, int x){
-
-        Queue<Node> q = new ArrayDeque<>();
-        n.color = x;
-        q.offer(n);
-
-        while(!q.isEmpty()){
-            Node u = q.poll();
-
-            for(Node node: u.adj){
-
-                q.offer(node);
-                if (u.color != 1) {
-                    solve(node, 1);
-                }
-                solve(node,0);
             }
         }
 
-        cnt ++;
+        System.out.println(2 * b + w);
+        return new Pair<>(b, b + w);
     }
 
-    public static void main(String [] args){
-        Scanner scan = new Scanner(System.in);
 
-        n = scan.nextInt();
+    public static void main(String[] args) {
+        Scanner scn = new Scanner(System.in);
 
-        tree = new Node[n];
+        n = scn.nextInt();
 
-        for(int i = 0; i < n; i ++)
-            tree[i] = new Node();
-
-        for(int i = 0; i < n - 1; i ++){
-
-            int a = scan.nextInt() - 1;
-            int b = scan.nextInt() - 1;
-
-            tree[a].adj.add(tree[b]);
-            tree[b].p = tree[a];
-        }
+        g = new ArrayList[n];
 
         for(int i = 0; i < n; i ++){
-            if(tree[i].p == null){
-                solve(tree[i],0);
-                solve(tree[i],1);
-            }
+            g[i] = new ArrayList<>();
         }
 
-        System.out.println(cnt);
-    }
+        for (int j = 0; j < n - 1; j++) {
 
+            int a = scn.nextInt() - 1;
+            int b = scn.nextInt() - 1;
+
+            g[a].add(b);
+            g[b].add(a);
+        }
+
+        Pair<Integer, Integer> ans = solve(0, -1);
+
+        System.out.println(ans.f + ans.s);
+
+
+    }
 
 }
