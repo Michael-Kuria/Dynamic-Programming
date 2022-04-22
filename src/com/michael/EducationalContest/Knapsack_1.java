@@ -78,14 +78,7 @@ public class Knapsack_1 {
         return dp[n][w];
     }
     
-    
-   /**
-     * Bottom up approach while saving space (linear space)
-     */
-    
-    public static long knapsack2(int n, int w, Item [] items){
-        
-    }
+
 
     /**
      * a bottom up approach while saving on space
@@ -93,7 +86,28 @@ public class Knapsack_1 {
      * @param w
      * @param items
      */
-    public static void knapsackSpace(int n, int w, Item [] items){
+    public static long knapsackSpace(int n, int w, Item [] items){
+
+
+        long dp[] = new long[w + 1]; //dp[i] is the maximum possible value with weight w
+
+        for(int i = 1; i <= w; i ++)
+            dp[i] = -1;
+
+        for(int i = 0; i < n; i ++){
+
+            for(int j = w - items[i].w; j >= 0; j --){
+
+                if(dp[j] > -1)
+                    dp[j + items[i].w ] = Math.max(dp[j + items[i].w ], dp[j] + items[i].v);
+            }
+        }
+
+        long ans = 0;
+        for(int i = 0; i <= w; i ++)
+            ans = Math.max(ans, dp[i]);
+
+        return ans;
 
     }
 
@@ -102,28 +116,24 @@ public class Knapsack_1 {
     public static void main(String [] args){
         Scanner scan = new Scanner(System.in);
 
-        String [] x = scan.nextLine().trim().split(" ");
-
-        int n = Integer.parseInt(x[0]);
-        int w = Integer.parseInt(x[1]);
+        int n = scan.nextInt();
+        int w = scan.nextInt();
 
 
         Item [] items = new Item[n];
 
         for(int i = 0; i < n; i ++){
-            int a = scan.nextInt();
-            int b = scan.nextInt();
 
-            Item item = new Item(i,a,b);
+            Item item = new Item(i,scan.nextInt(),scan.nextInt());
             items[i] = item;
-
 
         }
 
         //Arrays.sort(items);
 
 
-        System.out.println("Best "  +recursive(0,w,items));
+       // System.out.println("Best "  +recursive(0,w,items));
         System.out.println("Knapsack " + knapsack(n,w,items));
+        System.out.println("KnapsackSpace " + knapsackSpace(n,w,items));
     }
 }
