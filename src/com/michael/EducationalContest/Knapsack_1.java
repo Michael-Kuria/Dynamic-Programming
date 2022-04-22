@@ -78,6 +78,17 @@ public class Knapsack_1 {
         return dp[n][w];
     }
 
+    /**
+     * a bottom up approach while saving on space
+     * @param n
+     * @param w
+     * @param items
+     */
+    public static void knapsackSpace(int n, int w, Item [] items){
+
+
+    }
+
 
 
     public static void main(String [] args){
