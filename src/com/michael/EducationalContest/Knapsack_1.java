@@ -77,6 +77,15 @@ public class Knapsack_1 {
         }
         return dp[n][w];
     }
+    
+    
+   /**
+     * Bottom up approach while saving space (linear space)
+     */
+    
+    public static long knapsack2(int n, int w, Item [] items){
+        
+    }
 
 
 
