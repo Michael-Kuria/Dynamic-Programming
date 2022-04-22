@@ -86,7 +86,6 @@ public class Knapsack_1 {
      */
     public static void knapsackSpace(int n, int w, Item [] items){
 
-
     }
 
 
